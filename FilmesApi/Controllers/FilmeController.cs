@@ -49,11 +49,11 @@ public class FilmeController : ControllerBase
         return Ok(filmeDto);       
     }
     [HttpPut("{id}")]
-    public IActionResult AtualizarFilme(int id, [FromBody] UpdateFilmeDto filmeDtop)
+    public IActionResult AtualizarFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
         if(filme == null) { return NotFound(); }
-        _mapper.Map(filmeDtop, filme);
+        _mapper.Map(filmeDto, filme);
         _context.SaveChanges();
 
         return NoContent();
