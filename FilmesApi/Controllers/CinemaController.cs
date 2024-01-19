@@ -12,7 +12,6 @@ public class CinemaController : ControllerBase
 {
     private FilmeContext _context;
     private IMapper _mapper;
-
     public CinemaController(FilmeContext context, IMapper mapper)
     {
         _context = context;
@@ -20,7 +19,6 @@ public class CinemaController : ControllerBase
     }
 
     [HttpPost]
-
     public IActionResult AddCinema([FromBody] CreateCinemaDto cinemaDto)
     {
         Cinema cinema = _mapper.Map<Cinema>(cinemaDto);
@@ -60,6 +58,7 @@ public class CinemaController : ControllerBase
 
         return NoContent();
     }
+    
     [HttpDelete("{id}")]
     public IActionResult DeletarCinema(int id)
     {

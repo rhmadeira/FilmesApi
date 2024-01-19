@@ -25,7 +25,7 @@ public class EnderecoController : ControllerBase
         Endereco endereco = _mapper.Map<Endereco>(enderecoDto);
         _context.Enderecos.Add(endereco);
         _context.SaveChanges();
-        return Ok();
+        return CreatedAtAction(nameof(GetEnderecoById), new { id = endereco.Id }, endereco);
     }
 
     [HttpGet]
