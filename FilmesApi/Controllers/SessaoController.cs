@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class SessaoController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -22,6 +24,7 @@ namespace FilmesApi.Controllers
         {
             Sessao sessao = _mapper.Map<Sessao>(sessaoDto);
             _context.Sessoes.Add(sessao);
+            _context.SaveChanges();
             return CreatedAtAction(nameof(RecuperarSessaoPorId), new { Id = sessao.Id }, sessao);
         }
         
