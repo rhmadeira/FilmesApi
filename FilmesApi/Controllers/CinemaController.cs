@@ -40,16 +40,26 @@ public class CinemaController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<ReadCinemaDto> GetAllCinema([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadCinemaDto> GetCinemas([FromQuery] int skip = 0, int take = 50, int? enderecoId = null)
     {
-        var listCinema = _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take).ToList());
-        return listCinema;
+
+        if (enderecoId == null) 
+        {
+            var listCinema = _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take).ToList());
+            return listCinema;
+        }
+        else
+        {
+            var listCinema = _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Where(c => c.EnderecoId == enderecoId).ToList());
+            return listCinema;
+        }   
     }
 
     [HttpPut("{id}")]
     public IActionResult AtualizarCinema(int id, [FromBody] UpdateCinemaDto cinemaDto) 
     {
-      var cinema = _context.Cinemas.FirstOrDefault(c => c.Id == id);
+      var cinema = _context.Cinemas.
+            FirstOrDefault(c => c.Id == id);
         if(cinema == null) 
         {
             return NotFound();
