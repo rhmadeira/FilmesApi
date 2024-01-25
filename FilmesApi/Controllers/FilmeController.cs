@@ -32,7 +32,7 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<ReadFilmeDto> GetFilmes([FromQuery] int skip = 0, int take = 50, string nomeCinema = null)
+    public IEnumerable<ReadFilmeDto> GetFilmes([FromQuery] int skip = 0, int take = 50, string? nomeCinema = null)
     {
         if (nomeCinema == null)
         {
@@ -45,8 +45,7 @@ public class FilmeController : ControllerBase
             return _mapper.Map<List<ReadFilmeDto>>(filmes);
         }
     
-    }
-        
+    }  
 
     [HttpGet("{id}")]
     public IActionResult GetFilmeById(int id)
@@ -59,6 +58,7 @@ public class FilmeController : ControllerBase
         var filmeDto = _mapper.Map<ReadFilmeDto>(filme);    
         return Ok(filmeDto);       
     }
+
     [HttpPut("{id}")]
     public IActionResult AtualizarFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
     {
@@ -72,7 +72,6 @@ public class FilmeController : ControllerBase
     }
 
     [HttpPatch("{id}")]
-
     public IActionResult AtualizarFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
